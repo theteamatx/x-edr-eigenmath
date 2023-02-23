@@ -1,0 +1,209 @@
+// Copyright 2023 Google LLC
+
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+
+//     https://www.apache.org/licenses/LICENSE-2.0
+
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// This file contains message definitions for general purpose vectors,
+// matrices and poses from the eigenmath library.
+//
+// For example, in your .proto file:
+//
+// import ".../eigenmath.proto";
+//
+// message MoveRobot {
+//   eigenmath.Vector2dProto position = 1;
+//   eigenmath.Pose3dProto pose = 2;
+// }
+
+syntax = "proto3";
+
+package eigenmath;
+
+// Why the Proto suffix on all of these?
+// Due to C++ namespaces, if they match the names in eigenmath
+// exactly and someone does:
+//
+// using eigenmath::Vector3d
+//
+// Any #includes of the .proto.h file will result in compilation issues.
+//
+// We need to distinguish these names: hence we append Proto.
+
+// Matrix ordering can be complex. Here's an explanation of how it
+// is laid out using a 3x3 matrix:
+
+// For example the matrix:
+//
+//     1.0   2.0   3.0
+//    10.0  20.0  30.0
+//   100.0 200.0 300.0
+//
+// is input using this Textproto
+//
+//   mat: [1.0, 2.0, 3.0, 10.0, 20.0, 30.0, 100.0, 200.0, 300.0]
+//
+// Same input using Google Protocol Buffer:
+//   m.add_mat(1.0)
+//   m.add_mat(2.0)
+//   m.add_mat(3.0)
+//   m.add_mat(10.0)
+//   m.add_mat(20.0)
+//   m.add_mat(30.0)
+//   m.add_mat(100.0)
+//   m.add_mat(200.0)
+//   m.add_mat(300.0)
+//
+// When reading the matrix:
+//  m.mat(0)  will return 1.0
+//  m.mat(1)  will return 2.0
+//  m.mat(2)  will return 3.0
+//  m.mat(3)  will return 10.0
+//  m.mat(4)  will return 20.0
+//  m.mat(5)  will return 30.0
+//  m.mat(6)  will return 100.0
+//  m.mat(7)  will return 200.0
+//  m.mat(8)  will return 300.0
+
+message Vector2dProto {
+  repeated double vec = 1 [packed = true];
+}
+
+message Vector3dProto {
+  repeated double vec = 1 [packed = true];
+}
+
+message Vector4dProto {
+  repeated double vec = 1 [packed = true];
+}
+
+message Vector6dProto {
+  repeated double vec = 1 [packed = true];
+}
+
+// Variable length vector with max of 16.  The length of the 'vec' field
+// is variable from 1 to 16.
+message VectorNdProto {
+  repeated double vec = 1 [packed = true];
+}
+
+// Variable length vector without size limitation.
+// Note that if the size is smaller than 16, please consider using the
+// VectorNdProto in the eigen.proto.
+message VectorXdProto {
+  repeated double vec = 1;
+}
+
+// Matrices.  These all contain a flat vector of doubles.  The order
+// of the elements is in row order (native C order).  See the 3x3
+// worked example at the top of the file for more details.
+//
+// For example, the 2D matrix:
+// | a b |
+// | c d |
+//
+// will be in encoded as:
+// { a b c d }
+
+message Matrix2dProto {
+  repeated double mat = 1 [packed = true];
+}
+
+message Matrix3dProto {
+  repeated double mat = 1 [packed = true];
+}
+
+message Matrix4dProto {
+  repeated double mat = 1 [packed = true];
+}
+
+message Matrix6dProto {
+  repeated double mat = 1 [packed = true];
+}
+
+// Quaternion.
+message QuaterniondProto {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+  double w = 4;
+}
+
+// This is a 2D pose holding a translation vector and a rotation angle.
+// The rotation is in radians in a clockwise direction.
+// NOTE: for consistency with Pose3dProto below we don't use a Vector2d
+// for the translation, instead choosing to expand it into tx and ty
+// components.
+message Pose2dProto {
+  double tx = 1;
+  double ty = 2;
+
+  double rotation = 3;
+}
+
+// A 3D pose with an expanded translation and rotation.
+//
+// IMPORTANT NOTE: Why don't we use the already-defined messages (Vector3dProto
+// and QuaterniondProto for the internals of this?  There's a really
+// good reason.  If we use internal message fields it would mean
+// that we would have accessors for them and those accessors would
+// need to be able to return the address of the internal message's
+// headers (in order to be instances of blueproto::Message)
+// However, in Blueproto this maps onto the memory layout for an
+// eigenmath::Pose3d class and if we had internal messages we would have to
+// add a message header between the translation and rotation parts of the
+// Pose3d object. This adds an extra 24 bytes to the object and results in
+// pretty ugly and unmaintainable code just to enable access to internal
+// messages that will probably never be used.
+// Using the MoveRobot message, the protobuf text format for the message
+// would be as follows, showing the broken-out messages.
+//
+// move_robot {
+//   position {
+//     vec: 1.0
+//     vec: 2.0
+//   }
+//   pose {
+//     tx: 1.0
+//     ty: 2.0
+//     tz: 3.0
+//     rx: 0.0
+//     ry: 0.0
+//     rz: 0.0
+//     rw: 1.0
+//   }
+// }
+//
+// The C++ code would use the generated eigen methods directly:
+//
+// void DoSomething(const eigenmath::Vector2d& vec,
+//                  const eigenmath::Vector3d& translation,
+//                  const eigenmath::Quaterniond& quaternion);
+//
+// void HandleConfig(const blueproto::MoveRobot& move_robot_proto) {
+//   DoSomething(move_robot.eigen_position(),
+//               move_robot.eigen_pose().translation(),
+//               move_robot.eigen_pose().quaternion());
+// }
+//
+
+message Pose3dProto {
+  // Translation vector
+  double tx = 1;
+  double ty = 2;
+  double tz = 3;
+
+  // Rotation quaternion.
+  double rx = 4;
+  double ry = 5;
+  double rz = 6;
+  double rw = 7;
+}

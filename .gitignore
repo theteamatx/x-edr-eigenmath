@@ -1,0 +1,7 @@
+
+bazel-bin
+bazel-eigenmath
+bazel-out
+bazel-testlogs
+
+

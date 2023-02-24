@@ -93,12 +93,6 @@ class ConversionsTest : public ::testing::Test {
                                   MatrixType::ColsAtCompileTime);
   }
 
-  template <>
-  Pose2d MakeRandom<Pose2d>() {
-    std::uniform_real_distribution<double> uniform_scalar(-1.0, 1.0);
-    return Pose2d(MakeRandom<Vector2d>(),
-                  uniform_scalar(random_engine_) * M_PI);
-  }
 
   // Helper to generate a seeded-random vector of templated type and given size.
   template <typename VectorType>
@@ -108,6 +102,13 @@ class ConversionsTest : public ::testing::Test {
   // Random engine used with a seed to generate number sequences.
   TestGenerator random_engine_;
 };
+
+template <>
+Pose2d ConversionsTest::MakeRandom<Pose2d>() {
+  std::uniform_real_distribution<double> uniform_scalar(-1.0, 1.0);
+  return Pose2d(MakeRandom<Vector2d>(),
+                uniform_scalar(random_engine_) * M_PI);
+}
 
 TEST_F(ConversionsTest, EigenVectorToFromProto) {
   // Round trip on different dynamic vector sizes and types.

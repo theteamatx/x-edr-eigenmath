@@ -1,0 +1,3 @@
+[submodule "third_party/x-edr-genit"]
+	path = third_party/x-edr-genit
+	url = https://github.com/theteamatx/x-edr-genit.git

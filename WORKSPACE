@@ -1,4 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+#load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
 
 http_archive(
   name = "bazel_skylib",
@@ -48,8 +49,14 @@ load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")
 
 protobuf_deps()
 
+#git_repository(
+#    name = "genit",
+#    remote = "https://github.com/theteamatx/x-edr-genit.git",
+#    branch = "main"
+#)
+
 local_repository(
     name = "genit",
-    path = "third_party/genit",
+    path = "third_party/x-edr-genit",
 )
 

@@ -1,7 +1,4 @@
-
 bazel-bin
-bazel-eigenmath
 bazel-out
 bazel-testlogs
-
-
+bazel-x-edr-eigenmath

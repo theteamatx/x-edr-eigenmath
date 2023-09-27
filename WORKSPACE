@@ -39,10 +39,14 @@ http_archive(
 )
 
 # Protobuf
+_PROTOBUF_VERSION = "24.3"
 http_archive(
     name = "com_google_protobuf",
-    strip_prefix = "protobuf-main",
-    urls = ["https://github.com/protocolbuffers/protobuf/archive/main.zip"],
+    sha256 = "07d69502e58248927b58c7d7e7424135272ba5b2852a753ab6b67e62d2d29355",
+    strip_prefix = "protobuf-%s" % _PROTOBUF_VERSION,
+    urls = [
+        "https://github.com/protocolbuffers/protobuf/archive/v%s.tar.gz" % _PROTOBUF_VERSION,
+    ],
 )
 
 load("@com_google_protobuf//:protobuf_deps.bzl", "protobuf_deps")

@@ -66,7 +66,7 @@ cc_library(
         "@com_google_absl//absl/types:optional",
         "@com_google_absl//absl/types:span",
         "@eigen",
-        "@genit//genit:iterators",
+        "@x_edr_genit//genit:iterators",
     ],
 )
 
@@ -132,7 +132,7 @@ cc_library(
         ":eigenmath",
         "@com_google_googletest//:gtest",
         "@eigen",
-        "@genit//genit:iterators",
+        "@x_edr_genit//genit:iterators",
     ],
 )
 

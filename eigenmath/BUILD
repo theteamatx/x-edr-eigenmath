@@ -225,6 +225,7 @@ cc_test(
     ],
     deps = [
         ":incremental_stats",
+        "@com_google_absl//absl/time",
         "@com_google_googletest//:gtest_main",
     ],
 )
@@ -413,6 +414,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
+        "@com_google_absl//absl/log:check",
         "@com_google_absl//absl/random",
         "@com_google_absl//absl/strings:str_format",
         "@com_google_benchmark//:benchmark",
@@ -615,7 +617,7 @@ cc_library(
     name = "compare_vectors",
     hdrs = ["compare_vectors.h"],
     deps = [
-        ":eigenmath",
+        "@com_google_absl//absl/types:span"
     ],
 )
 
@@ -637,6 +639,7 @@ cc_library(
     srcs = ["quasi_random_vector.cc"],
     hdrs = ["quasi_random_vector.h"],
     deps = [
+        "@com_google_absl//absl/log:check",
         ":eigenmath",
     ],
 )

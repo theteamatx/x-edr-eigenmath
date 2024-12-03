@@ -13,8 +13,8 @@
 # limitations under the License.
 
 load("@rules_cc//cc:defs.bzl", "cc_library", "cc_test")
-load("@protobuf//bazel:cc_proto_library.bzl", "cc_proto_library")
-load("@protobuf//bazel:proto_library.bzl", "proto_library")
+load("@com_google_protobuf//bazel:cc_proto_library.bzl", "cc_proto_library")
+load("@com_google_protobuf//bazel:proto_library.bzl", "proto_library")
 
 licenses(["notice"])
 
@@ -71,16 +71,16 @@ cc_library(
         "vector_utils.h",
     ],
     deps = [
-        "@abseil-cpp//absl/base:core_headers",
-        "@abseil-cpp//absl/container:flat_hash_set",
-        "@abseil-cpp//absl/log",
-        "@abseil-cpp//absl/log:check",
-        "@abseil-cpp//absl/status",
-        "@abseil-cpp//absl/status:statusor",
-        "@abseil-cpp//absl/strings",
-        "@abseil-cpp//absl/strings:str_format",
-        "@abseil-cpp//absl/types:optional",
-        "@abseil-cpp//absl/types:span",
+        "@com_google_absl//absl/base:core_headers",
+        "@com_google_absl//absl/container:flat_hash_set",
+        "@com_google_absl//absl/log",
+        "@com_google_absl//absl/log:check",
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/status:statusor",
+        "@com_google_absl//absl/strings",
+        "@com_google_absl//absl/strings:str_format",
+        "@com_google_absl//absl/types:optional",
+        "@com_google_absl//absl/types:span",
         "@eigen",
         "@x_edr_genit//genit:iterators",
     ],
@@ -109,9 +109,9 @@ cc_library(
     deps = [
         ":eigenmath",
         ":eigenmath_cc_proto",
-        "@abseil-cpp//absl/log:check",
-        "@abseil-cpp//absl/status",
-        "@abseil-cpp//absl/strings",
+        "@com_google_absl//absl/log:check",
+        "@com_google_absl//absl/status",
+        "@com_google_absl//absl/strings",
     ],
 )
 
@@ -126,7 +126,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -147,7 +147,7 @@ cc_library(
     deps = [
         ":eigenmath",
         "@eigen",
-        "@googletest//:gtest",
+        "@com_google_googletest//:gtest",
         "@x_edr_genit//genit:iterators",
     ],
 )
@@ -155,7 +155,7 @@ cc_library(
 cc_library(
     name = "incremental_stats",
     hdrs = ["incremental_stats.h"],
-    deps = ["@abseil-cpp//absl/time"],
+    deps = ["@com_google_absl//absl/time"],
 )
 
 cc_library(
@@ -168,7 +168,7 @@ cc_test(
     srcs = ["sampling_test.cc"],
     deps = [
         ":sampling",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -179,7 +179,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":test_constants",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
         "@eigen",
     ],
 )
@@ -191,8 +191,8 @@ cc_test(
     ],
     deps = [
         ":eigenmath",
-        "@abseil-cpp//absl/types:optional",
-        "@googletest//:gtest_main",
+        "@com_google_absl//absl/types:optional",
+        "@com_google_googletest//:gtest_main",
         "@eigen",
     ],
 )
@@ -204,7 +204,7 @@ cc_test(
     ],
     deps = [
         ":eigenmath",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -215,7 +215,7 @@ cc_test(
     ],
     deps = [
         ":eigenmath",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -226,8 +226,8 @@ cc_test(
     ],
     deps = [
         ":incremental_stats",
-        "@abseil-cpp//absl/time",
-        "@googletest//:gtest_main",
+        "@com_google_absl//absl/time",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -240,7 +240,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -251,7 +251,7 @@ cc_test(
     ],
     deps = [
         ":eigenmath",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -261,7 +261,7 @@ cc_test(
     deps = [
         ":eigenmath",
         ":matchers",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -274,7 +274,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
         "@eigen",
     ],
 )
@@ -285,7 +285,7 @@ cc_test(
     deps = [
         ":eigenmath",
         ":matchers",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -298,7 +298,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
         "@eigen",
     ],
 )
@@ -311,7 +311,7 @@ cc_test(
     deps = [
         ":eigenmath",
         ":matchers",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
         "@eigen",
     ],
 )
@@ -325,7 +325,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -338,7 +338,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
         "@eigen",
     ],
 )
@@ -352,7 +352,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
         "@eigen",
     ],
 )
@@ -365,7 +365,7 @@ cc_test(
     deps = [
         ":eigenmath",
         ":matchers",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -378,7 +378,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":test_utils",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -391,7 +391,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":test_utils",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -402,7 +402,7 @@ cc_test(
     ],
     deps = [
         ":eigenmath",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -415,11 +415,11 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@abseil-cpp//absl/log:check",
-        "@abseil-cpp//absl/random",
-        "@abseil-cpp//absl/strings:str_format",
-        "@google_benchmark//:benchmark",
-        "@googletest//:gtest_main",
+        "@com_google_absl//absl/log:check",
+        "@com_google_absl//absl/random",
+        "@com_google_absl//absl/strings:str_format",
+        "@com_google_benchmark//:benchmark",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -430,7 +430,7 @@ cc_test(
     ],
     deps = [
         ":eigenmath",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -443,7 +443,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -455,7 +455,7 @@ cc_test(
     deps = [
         ":eigenmath",
         ":matchers",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -467,8 +467,8 @@ cc_test(
     deps = [
         ":eigenmath",
         ":sampling",
-        "@google_benchmark//:benchmark",
-        "@googletest//:gtest_main",
+        "@com_google_benchmark//:benchmark",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -480,7 +480,7 @@ cc_test(
     deps = [
         ":eigenmath",
         ":matchers",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -491,7 +491,7 @@ cc_test(
     ],
     deps = [
         ":eigenmath",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -504,9 +504,9 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@abseil-cpp//absl/random:distributions",
-        "@google_benchmark//:benchmark",
-        "@googletest//:gtest_main",
+        "@com_google_absl//absl/random:distributions",
+        "@com_google_benchmark//:benchmark",
+        "@com_google_googletest//:gtest_main",
         "@eigen",
     ],
 )
@@ -518,9 +518,9 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@abseil-cpp//absl/random:distributions",
-        "@google_benchmark//:benchmark",
-        "@googletest//:gtest_main",
+        "@com_google_absl//absl/random:distributions",
+        "@com_google_benchmark//:benchmark",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -533,7 +533,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
         "@eigen",
     ],
 )
@@ -546,7 +546,7 @@ cc_test(
     deps = [
         ":eigenmath",
         ":matchers",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -558,7 +558,7 @@ cc_test(
     deps = [
         ":eigenmath",
         ":matchers",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
         "@eigen",
     ],
 )
@@ -570,7 +570,7 @@ cc_test(
     ],
     deps = [
         ":eigenmath",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -582,7 +582,7 @@ cc_test(
     deps = [
         ":eigenmath",
         ":matchers",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
         "@eigen",
     ],
 )
@@ -596,7 +596,7 @@ cc_test(
         ":eigenmath",
         ":matchers",
         ":sampling",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -618,7 +618,7 @@ cc_library(
     name = "compare_vectors",
     hdrs = ["compare_vectors.h"],
     deps = [
-        "@abseil-cpp//absl/types:span"
+        "@com_google_absl//absl/types:span"
     ],
 )
 
@@ -630,8 +630,8 @@ cc_test(
     deps = [
         ":compare_vectors",
         ":eigenmath",
-        "@abseil-cpp//absl/types:span",
-        "@googletest//:gtest_main",
+        "@com_google_absl//absl/types:span",
+        "@com_google_googletest//:gtest_main",
     ],
 )
 
@@ -641,7 +641,7 @@ cc_library(
     hdrs = ["quasi_random_vector.h"],
     deps = [
         ":eigenmath",
-        "@abseil-cpp//absl/log:check",
+        "@com_google_absl//absl/log:check",
     ],
 )
 
@@ -650,6 +650,6 @@ cc_test(
     srcs = ["quasi_random_vector_test.cc"],
     deps = [
         ":quasi_random_vector",
-        "@googletest//:gtest_main",
+        "@com_google_googletest//:gtest_main",
     ],
 )
